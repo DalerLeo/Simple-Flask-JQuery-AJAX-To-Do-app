@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Simple To-do List</title>
+
+    <!-- Bootstrap  CSS Files-->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/w3css.css') }}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    
+    <!-- J query and custom js files -->
+
+    <script src="{{ url_for('static', filename='js/jQuery.js') }}"  type="text/javascript" ></script>
+    <script src="{{ url_for('static', filename='js/myjs.js') }}"  type="text/javascript" ></script>
+    <script type=text/javascript>
+      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }}
+    </script>
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="wrapper">
+        <div class="form" id="warn">
+          <h2 class="form-signin-heading">Add Tasks</h2>
+          <div>
+            <input type="text" name="title"  placeholder="Title" required autofocus>
+          </div>
+          <div>
+            <input type="date" name="deadline" placeholder="Deadline" required autofocus>
+          </div>
+          <div>
+              <textarea rows="3" name="comment" id="comment" placeholder="Additional notes" required></textarea>
+          </div>
+          <div class="btnD">
+            <button class="" id="btn1">Add</button>
+          </div>
+        </div>
+        <div class="tasks-wrapper">          
+          <h2>To-do List</h2>
+          <div class="list-group">
+            {%for task in tasks %}
+                <a href="#{{ task.id }}" title="{{task.notes}}"
+                   class="list-group-item {% if task.status %} list-group-item-success {% endif%}">
+                  {{task.title}}
+                  <span class="label label-default">{{task.deadline}}</span>
+                </a>
+            {%endfor%}
+          </div>
+        </div>
+      </div>
+    </div> 
+
+
+  </body>
+</html>
